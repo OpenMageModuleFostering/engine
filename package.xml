@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
     <name>Engine</name>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
     <stability>stable</stability>
     <license uri="http://opensource.org/licenses/osl-3.0.php">Open Software License (OSL 3.0)</license>
     <channel>community</channel>
@@ -13,7 +13,10 @@
 - adds checkbox to order process to have clients subscribe to the newsletter&#xD;
 - insert marketing pixel after an order has been placed&#xD;
 - automatically send all transational mail through E-ngine</description>
-    <notes># 1.2.0&#xD;
+    <notes># 1.3.0&#xD;
+Added support for third-party plugins adding information to the order total.&#xD;
+&#xD;
+# 1.2.0&#xD;
 Added the possibility to force a welcome mail to existing subscribers.&#xD;
 &#xD;
 # 1.1.0&#xD;
@@ -28,9 +31,9 @@ First release of the E-ngine Magento plugin with support for:&#xD;
 - Newsletter subscriber sync is now optional&#xD;
 </notes>
     <authors><author><name>M. van de Vis</name><user>enginenl</user><email>m.vandevis@e-ngine.nl</email></author></authors>
-    <date>2014-11-14</date>
-    <time>10:19:38</time>
-    <contents><target name="magecommunity"><dir name="Engine"><dir name="Engine"><dir name="Block"><file name="Ecommerce.php" hash="88ea3d0710e17a9045f17c61f84ce9c4"/><file name="Extrafields.php" hash="c01c8b9748bdfc6aa7896b2e54ac378e"/><file name="Newsletter.php" hash="26d76a49cd5d0bf3838d46ebedd94f92"/></dir><dir name="Helper"><file name="Connect.php" hash="d12b9e970de63e577aa019f33d95d75d"/><file name="Data.php" hash="075e5242e0b5ff0d678fccbf18548742"/></dir><dir name="Model"><dir name="Checkout"><dir name="Type"><file name="Onepage.php" hash="19c9e3f325e6c91b4db5ba56764304c2"/></dir></dir><dir name="Core"><dir name="Email"><file name="Template.php" hash="9873c4f6a9f3c1e915f41b0bfb6344ea"/></dir></dir><file name="Cron.php" hash="d554f144f816b05b8b3d4190dc5237f7"/><file name="Observer.php" hash="a6026edb5c9008b90ae4c51001b6fe9f"/><file name="Subscriber.php" hash="1416cb75f98c5dcbd51cf32067f6ce5a"/></dir><dir name="controllers"><dir name="Admin"><dir name="Newsletter"><file name="SubscriberController.php" hash="a6a536209e38612815f979d456166f02"/></dir><dir name="System"><dir name="Email"><file name="TemplateController.php" hash="2ddc7f92c2d934ea25bdd0ab78e617cb"/></dir></dir></dir></dir><dir name="etc"><file name="config.xml" hash="6dd04f2515e367c7be1297b1e5444b1b"/><file name="system.xml" hash="690ad8691503f0c0ca403f7be4f79270"/></dir></dir></dir></target><target name="magedesign"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="template"><dir name="engine"><dir><dir name="field"><file name="extra_field.phtml" hash="a29bce9f955b3512e3b368b29e0f057f"/></dir></dir></dir></dir></dir></dir></dir><dir name="frontend"><dir name="base"><dir name="default"><dir name="layout"><file name="engine.xml" hash="43416b891659bc33fac78231f2e622af"/></dir><dir name="template"><dir name="engine"><file name="default-checkout-onepage-billing.phtml" hash="bef746845a6b7f2f2e5c028954556265"/><file name="ecommerce_pixel.phtml" hash="df46aa0cf685c19ccca3113d19c5e11f"/><file name="newsletter.phtml" hash="f3e7164fb569bc0690532ce161ca84c2"/></dir></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Engine_Engine.xml" hash="850b7e1f8ce6af9e8dd39584e819da0e"/></dir></target><target name="magelocale"><dir name="en_US"><file name="Engine_Engine.csv" hash="0a7c622392cd7b5af66bbec45d32ebb7"/></dir><dir name="nl_NL"><file name="Engine_Engine.csv" hash="d79537a741d891e2b97a15d8d02d8d04"/></dir></target></contents>
+    <date>2015-10-06</date>
+    <time>12:43:37</time>
+    <contents><target name="magecommunity"><dir name="Engine"><dir name="Engine"><dir name="Block"><file name="Ecommerce.php" hash="88ea3d0710e17a9045f17c61f84ce9c4"/><file name="Extrafields.php" hash="c01c8b9748bdfc6aa7896b2e54ac378e"/><file name="Newsletter.php" hash="26d76a49cd5d0bf3838d46ebedd94f92"/></dir><dir name="Helper"><file name="Connect.php" hash="d12b9e970de63e577aa019f33d95d75d"/><file name="Data.php" hash="075e5242e0b5ff0d678fccbf18548742"/></dir><dir name="Model"><dir name="Checkout"><dir name="Type"><file name="Onepage.php" hash="19c9e3f325e6c91b4db5ba56764304c2"/></dir></dir><dir name="Core"><dir name="Email"><file name="Template.php" hash="9873c4f6a9f3c1e915f41b0bfb6344ea"/></dir></dir><file name="Cron.php" hash="d554f144f816b05b8b3d4190dc5237f7"/><file name="Observer.php" hash="a6026edb5c9008b90ae4c51001b6fe9f"/><file name="Subscriber.php" hash="1416cb75f98c5dcbd51cf32067f6ce5a"/></dir><dir name="controllers"><dir name="Admin"><dir name="Newsletter"><file name="SubscriberController.php" hash="a6a536209e38612815f979d456166f02"/></dir><dir name="System"><dir name="Email"><file name="TemplateController.php" hash="2ddc7f92c2d934ea25bdd0ab78e617cb"/></dir></dir></dir></dir><dir name="etc"><file name="config.xml" hash="6dd04f2515e367c7be1297b1e5444b1b"/><file name="system.xml" hash="690ad8691503f0c0ca403f7be4f79270"/></dir></dir></dir></target><target name="magedesign"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="template"><dir name="engine"><dir><dir name="field"><file name="extra_field.phtml" hash="a29bce9f955b3512e3b368b29e0f057f"/></dir></dir></dir></dir></dir></dir></dir><dir name="frontend"><dir name="base"><dir name="default"><dir name="layout"><file name="engine.xml" hash="43416b891659bc33fac78231f2e622af"/></dir><dir name="template"><dir name="engine"><file name="default-checkout-onepage-billing.phtml" hash="bef746845a6b7f2f2e5c028954556265"/><file name="ecommerce_pixel.phtml" hash="a145347ad4739a6baa2a99012a9875bd"/><file name="newsletter.phtml" hash="f3e7164fb569bc0690532ce161ca84c2"/></dir></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Engine_Engine.xml" hash="850b7e1f8ce6af9e8dd39584e819da0e"/></dir></target><target name="magelocale"><dir name="en_US"><file name="Engine_Engine.csv" hash="0a7c622392cd7b5af66bbec45d32ebb7"/></dir><dir name="nl_NL"><file name="Engine_Engine.csv" hash="d79537a741d891e2b97a15d8d02d8d04"/></dir></target></contents>
     <compatible/>
     <dependencies><required><php><min>5.1.0</min><max>6.0.0</max></php><package><name></name><channel>connect.magentocommerce.com/core</channel><min></min><max></max></package></required></dependencies>
 </package>

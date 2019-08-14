@@ -19,13 +19,13 @@ if ($this->isEcommerce()) {
             $shipping    = $_order->getShippingInclTax () * 100;
         }
         
-        //$grandTotal = $_order->getGrandTotal() * 100;
         $grandTotal = 0;
         
         echo '<script type="text/javascript">' . PHP_EOL;
         echo 'function ENgine_tracker_initialized()' . PHP_EOL;
         echo '{' . PHP_EOL;
         echo '   ENgine_tracker._setLeadData("' . $clientID . '", "sale", "' . $orderID . '");' . PHP_EOL;
+        
         if ($shipping > 0 && $addShipping) {
             $name     = $_order->getShippingDescription();
             $category = 'Shipping costs';
@@ -46,6 +46,25 @@ if ($this->isEcommerce()) {
             $grandTotal += $price * $nr;
             echo '   ENgine_tracker._addRow("' . $name . '", "' . $category . '", "' . $price . '", "' . $nr . '");' . PHP_EOL;
         }
+
+        // Check for other items in the total, which we haven't processed yet
+        // Possibly some additions by plugins
+        $ignoreTotalItems = array(
+            'subtotal',
+            'tax',
+            'grand_total',
+            'shipping'
+        );        
+        $quote = Mage::getModel('sales/quote')->load($_order->getQuoteId());
+        foreach ($quote->getTotals() as $_code => $_total){
+            if (array_search($_code, $ignoreTotalItems) === false) {
+                $nr = 1;
+                $price = ($_total->getValue() * 100);
+                $grandTotal += $price * $nr;
+                echo '   ENgine_tracker._addRow("' . addslashes($_total->getTitle()) . '", "' . $_code . '", "' . $price . '", "' . $nr . '");' . PHP_EOL;
+            }
+        }
+        
         echo '   ENgine_tracker._process();' . PHP_EOL;
         echo '}' . PHP_EOL;
         echo '</script>' . PHP_EOL;
