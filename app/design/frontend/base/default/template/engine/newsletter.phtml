@@ -1,0 +1,19 @@
+<?php
+/* 
+ * You can also use this block on your own billing page.
+ * Use this snippet to include the file:
+ * 
+ * echo $this->getLayout()->createBlock('engine/newsletter')->toHtml();
+ */
+
+
+$helper = Mage::helper('engine/connect');
+if ($helper->isENgineSetup()) {
+    $checked = false;
+?>
+<li id="engine-register" class="control">
+    <input type="checkbox" <?php echo $checked ? ' checked="checked"' : ''; ?> name="billing[is_subscribed]" value="1" title="<?php echo Mage::helper('customer')->__('Sign up for newsletter') ?>" id="billing:is_subscribed" /> 
+    <label for="billing:is_subscribed"><?php echo Mage::helper('customer')->__('Sign up for newsletter') ?></label>
+</li>
+<?php 
+}

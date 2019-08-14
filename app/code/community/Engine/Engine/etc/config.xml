@@ -1,0 +1,229 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Engine Extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com and you will be sent a copy immediately.
+ *
+ * @category   Engine
+ * @package    Engine_Engine
+ * @author     M. van de Vis
+ * @copyright  Copyright (c) 2014 Engine (www.engine.nl)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+
+    <modules>
+        <Engine_Engine>
+            <version>1.1.0</version>
+        </Engine_Engine>
+    </modules>
+
+    <global>
+        <models>
+            <!--
+            Allow custom models
+            -->
+            <engine>
+                <class>Engine_Engine_Model</class>
+            </engine>
+	
+            <!--
+            Rewrite model to we can:
+            - subscribe
+            - prevent sending (un)confirmation mails
+            -->
+            <newsletter>
+                <rewrite>
+                    <subscriber>Engine_Engine_Model_Subscriber</subscriber>
+                </rewrite>
+            </newsletter>
+            
+            <!--
+            Inject saving of isSubscribed state while processing billing info.
+            -->            
+        	<checkout>
+        		<rewrite>
+        			<type_onepage>Engine_Engine_Model_Checkout_Type_Onepage</type_onepage>
+        		</rewrite>
+        	</checkout>
+            
+            <core>
+                <rewrite>
+                    <email_template>Engine_Engine_Model_Core_Email_Template</email_template>
+                </rewrite>
+            </core>
+        </models>
+        
+        <!--
+        Our helper which connects to E-ngine and actually subscribes/unsubscribes the users.
+        -->
+        <helpers>
+            <engine>
+                <class>Engine_Engine_Helper</class>
+            </engine>
+        </helpers>
+
+        <!--
+        The blocks which handle:
+        - Checkbox 'subscribe' while ordering
+        - Processing extra fields while signing up.
+        -->        
+        <blocks>
+        	<engine>
+                <class>Engine_Engine_Block</class>
+            </engine>
+        </blocks>
+        
+        <events>    
+            <!--
+            Check subscription state while saving customer
+            - updating customer profile (admin/frontend)
+            -->
+            <customer_save_before>
+                <observers>
+                    <engine_engine_observer_save>
+                        <type>singleton</type>
+                        <class>engine/observer</class>
+                        <method>checkSubscriptionStatus</method>
+                    </engine_engine_observer_save>
+                </observers>
+            </customer_save_before> 
+                    
+            <!--
+            Check subscription state while saving customer
+            - updating customer profile (admin/frontend)
+            -->
+            <customer_delete_before>
+                <observers>
+                    <engine_engine_observer_delete>
+                        <type>singleton</type>
+                        <class>engine/observer</class>
+                        <method>customerDeleted</method>
+                    </engine_engine_observer_delete>
+                </observers>
+            </customer_delete_before>
+            
+            <!--
+            Process signup in order process
+            - allow signup while ordering
+            -->
+        	<checkout_type_onepage_save_order>
+                <observers>
+                    <engine_engine_observer_issubscribed>
+                        <type>singleton</type>
+                        <class>engine/observer</class>
+                        <method>setCustomerIsSubscribed</method>
+                    </engine_engine_observer_issubscribed>
+                </observers>
+            </checkout_type_onepage_save_order>
+        </events>
+        
+        
+        <cache>
+            <types>
+                <engine_template module="engine" translate="label,description">
+                    <label>E-ngine transactional e-mail cache</label>
+                    <description>The E-ngine mailing IDs are cached to prevent redundant calls to E-ngine. Refresh this cache after changing a template in E-ngine or the subject in the settings.</description>
+                    <tags>ENGINE_CACHE</tags>
+                </engine_template>
+            </types>
+        </cache>
+    </global>
+    
+    <admin>
+        <routers>
+            <!--
+            Overrides admin controllers
+            - mass delete will also unsubscribe addresses
+            -->
+            <adminhtml>
+                <use>admin</use>
+                <args>
+                    <module>Mage_Adminhtml</module>
+                    <frontName>admin</frontName>
+                    <modules>
+                        <Engine_Engine before="Mage_Adminhtml">Engine_Engine_Admin</Engine_Engine>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    
+    <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <engine translate="title" module="engine">
+                                            <title>E-ngine Config Section</title>
+                                        </engine>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+
+        <translate>
+            <modules>
+                <engine>
+                    <files>
+                        <default>Engine_Engine.csv</default>
+                    </files>
+                </engine>
+            </modules>
+        </translate>
+    </adminhtml>
+    
+    <frontend>
+        <layout>
+            <!--
+            Inject layout updates to:
+            - show checkbox while ordering.
+            -->
+            <updates>
+                <engine>
+                    <file>engine.xml</file>
+                </engine>
+            </updates>
+        </layout>
+    </frontend>
+    
+    <default>
+        <engine>
+            <ecommerce>
+                <engine_success_url>/checkout/onepage/success</engine_success_url>
+                <engine_include_shipping>1</engine_include_shipping>
+                <engine_include_tax>1</engine_include_tax>
+            </ecommerce>
+        </engine>
+    </default>
+    
+    <crontab>
+        <jobs>
+            <!--
+            Process E-ngine bounces and unsubscribe them from the newsletter in Magento.
+            -->
+            <engine_engine_process_bounces>
+                <schedule><cron_expr>15 0 * * *</cron_expr></schedule>
+                <run><model>engine/cron::processBounces</model></run>
+            </engine_engine_process_bounces>
+        </jobs>
+    </crontab>
+</config>

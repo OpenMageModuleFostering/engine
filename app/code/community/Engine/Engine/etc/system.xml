@@ -1,0 +1,283 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * E-ngine Extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com and you will be sent a copy immediately.
+ *
+ * @category   Engine
+ * @package    Engine_Engine
+ * @author     Michiel van de Vis
+ * @copyright  Copyright (c) 2014 Engine BV (www.e-ngine.nl)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+	<tabs>
+        <engine translate="label" module="engine">
+            <label>E-ngine</label>
+            <sort_order>1</sort_order>
+        </engine>
+    </tabs>
+    <sections>
+        <engine translate="label">
+			<label>E-ngine Configuration</label>
+			<tab>engine</tab>
+			<sort_order>100</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+        	<groups>
+        		<login translate="label" module="engine">
+                    <label>Login settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <engine_customer translate="label,comment">
+                            <label>E-ngine Customer</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>This is the name of your E-ngine account which also can be found in the URL when you login to E-ngine.</comment>
+                        </engine_customer>
+                        <engine_username translate="label,comment">
+                            <label>E-ngine Username</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>This is the E-ngine username which can be used to login. Please create a SOAP user in E-ngine.</comment>
+                        </engine_username>
+                        <engine_password translate="label,comment">
+                            <label>E-ngine Password</label>
+                            <frontend_type>password</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>This is the E-ngine password which can be used to login. Please create a SOAP user in E-ngine.</comment>
+                        </engine_password>
+                        <engine_mlid translate="label,comment">
+                            <label>Mailinglist ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>This is the E-ngine mailinglist for which the users should be subscribed.</comment>
+                        </engine_mlid>
+                    </fields>
+                </login>
+        		<actions translate="label" module="engine">
+                    <label>Campaign management</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <engine_syncsubscribers translate="label,comment">
+                            <label>Synchronize subscribers</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Should Magento synchronize the subscribers to E-ngine? This will automatically subscribe/unsubscribe users in E-ngine if a user subscribers to your store its newsletter through a signup box or their account.</comment>
+                        </engine_syncsubscribers>
+                        <engine_extrafields translate="label,comment">
+                            <label>Extra fields</label>
+                            <frontend_model>engine_engine_block_extrafields</frontend_model>
+                            <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>These extra fields will be added to the subscriber data while syncing to E-ngine.</comment>
+                        </engine_extrafields>
+                        <engine_actionid_signup translate="label,comment">
+                            <label>Action ID - Signup form</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>This is the E-ngine action ID which should be used when the signup form is used.</comment>
+                            <depends>
+                                <engine_syncsubscribers>1</engine_syncsubscribers>
+                            </depends>
+                        </engine_actionid_signup>
+                        <engine_actionid_order translate="label,comment">
+                            <label>Action ID - Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>This is the E-ngine action ID which should be used when a subscriber signs up during an order.</comment>
+                            <depends>
+                                <engine_syncsubscribers>1</engine_syncsubscribers>
+                            </depends>
+                        </engine_actionid_order>
+                        <engine_actionid_account translate="label,comment">
+                            <label>Action ID - Account</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>This is the E-ngine action ID which should be used when a users subscribes from their account.</comment>
+                            <depends>
+                                <engine_syncsubscribers>1</engine_syncsubscribers>
+                            </depends>
+                        </engine_actionid_account>
+                    </fields>
+                </actions>
+        		<ecommerce translate="label" module="engine">
+                    <label>Marketing</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <engine_marketing translate="label,comment">
+                            <label>Enable ecommerce pixel</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Should an pixel be placed on the 'success' page after completing an order? This makes the turnover from your newsletter visible in E-ngine.</comment>
+                        </engine_marketing>
+                        <engine_id translate="label,comment">
+                            <label>E-ngine client/mailinglist ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>This is the E-ngine client/mailinglist ID which can be found in the marketing pixel example on the page Marketing > Lead Tracking API.</comment>
+                            <depends>
+                                <engine_marketing>1</engine_marketing>
+                            </depends>
+                        </engine_id>
+                        <engine_subdomain translate="label,comment">
+                            <label>E-ngine subdomain</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>This is the E-ngine subdomain which is setup for the specified mailinglist.</comment>
+                            <depends>
+                                <engine_marketing>1</engine_marketing>
+                            </depends>
+                        </engine_subdomain>
+                        <engine_success_url translate="label,comment">
+                            <label>Checkout Success Page URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Please type in the relative URL of your checkout success page url. Standard is /checkout/onepage/success</comment>
+                            <depends>
+                                <engine_marketing>1</engine_marketing>
+                            </depends>
+                        </engine_success_url>
+                        <engine_include_shipping translate="label,comment">
+                            <label>Include shipping costs?</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>If enabled, the value in the marketing pixel will also include the shipping costs and the shipping costs will be added as a seperate product in the pixel.</comment>
+                            <depends>
+                                <engine_marketing>1</engine_marketing>
+                            </depends>
+                        </engine_include_shipping>
+                        <engine_include_tax translate="label,comment">
+                            <label>Include tax?</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>If enabled, the value in the marketing pixel will also include tax.</comment>
+                            <depends>
+                                <engine_marketing>1</engine_marketing>
+                            </depends>
+                        </engine_include_tax>
+                    </fields>
+                </ecommerce>
+                
+        		<mails translate="label" module="engine">
+                    <label>Transactional e-mail</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>3</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <engine_enable_trigger translate="label,comment">
+                            <label>Enable transactional e-mail via E-ngine</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Should the transactional emails (order confirmation / new signups / etc.) be sent by E-ngine?</comment>
+                        </engine_enable_trigger>
+                        <engine_enable_test translate="label,comment">
+                            <label>Enable testing mode?</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Should the transactional mails be sent to specified test addresses? In this case, the regular subscribers will receive the mail via the Magento default setup.</comment>
+                            <depends>
+                                <engine_enable_trigger>1</engine_enable_trigger>
+                            </depends>
+                        </engine_enable_test>
+                        <engine_testaddress translate="label,comment">
+                            <label>Test address</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>This test address will receive the transactional mails sent by E-ngine</comment>
+                            <depends>
+                                <engine_enable_test>1</engine_enable_test>
+                            </depends>
+                        </engine_testaddress>
+                    </fields>
+                </mails>
+                
+        	</groups>
+        </engine>
+    </sections>
+</config>

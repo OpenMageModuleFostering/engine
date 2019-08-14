@@ -1,0 +1,60 @@
+<?php
+// Is the module activated?
+if ($this->isEcommerce()) {
+    // Do we have an order?
+    $_order = $this->getOrder();
+    if ($_order !== false) {
+        $orderID   = $_order->getData($this->getTransactionIdField());
+        $clientID  = $this->getENgineID();
+        $subdomain = $this->getENgineSubdomain();
+        $customer  = $this->getENgineCustomer();
+        $addShipping = $this->getIncludeShipping();
+        $includeTax  = $this->getIncludeTax();
+        
+        $isSecure = Mage::app()->getStore()->isCurrentlySecure();
+        $pixelURL = $isSecure ? 'https://' . $customer . '.e-ngine.nl/' : $subdomain;
+        
+        $shipping   = $_order->getShippingAmount() * 100;
+        if ($includeTax) {
+            $shipping    = $_order->getShippingInclTax () * 100;
+        }
+        
+        //$grandTotal = $_order->getGrandTotal() * 100;
+        $grandTotal = 0;
+        
+        echo '<script type="text/javascript">' . PHP_EOL;
+        echo 'function ENgine_tracker_initialized()' . PHP_EOL;
+        echo '{' . PHP_EOL;
+        echo '   ENgine_tracker._setLeadData("' . $clientID . '", "sale", "' . $orderID . '");' . PHP_EOL;
+        if ($shipping > 0 && $addShipping) {
+            $name     = $_order->getShippingDescription();
+            $category = 'Shipping costs';
+            
+            $grandTotal += $shipping;            
+            echo '   ENgine_tracker._addRow("' . $name . '", "' . $category . '", "' . $shipping . '", "1");' . PHP_EOL;
+        }
+        foreach($_order->getAllVisibleItems() as $_item) {
+            if($_item->getParentItem()) continue;
+            $name     = str_replace('\'','', $_item->getName());
+            $category = 'Products';
+            $price    = $_item->getPrice() * 100;
+            if ($includeTax) {
+                $price    = $_item->getPriceInclTax () * 100;
+            }
+            $nr       = (int) $_item->getQtyOrdered();
+            
+            $grandTotal += $price * $nr;
+            echo '   ENgine_tracker._addRow("' . $name . '", "' . $category . '", "' . $price . '", "' . $nr . '");' . PHP_EOL;
+        }
+        echo '   ENgine_tracker._process();' . PHP_EOL;
+        echo '}' . PHP_EOL;
+        echo '</script>' . PHP_EOL;
+        echo '<script type="text/javascript">' . PHP_EOL;
+        echo 'var ENgine_tracker_hostname = "' . $pixelURL . '";' . PHP_EOL;
+        echo 'document.write(unescape("%3Cscript src=\'" + ENgine_tracker_hostname + "mail/ENgine_tracker.js\' type=\'text/javascript\'%3E%3C/script%3E"));' . PHP_EOL;
+        echo '</script>' . PHP_EOL;
+        echo '<noscript><img src="' . $pixelURL . 'mail/lead.php?cid=' . $clientID . '&amp;type=sale&amp;uid=' . $orderID . '&amp;total=' . $grandTotal . '" width="1" height="1" alt="" /></noscript>';
+        
+        echo $this->getChildHtml();
+    }
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+
+<!--
+Disable this block if you'd like to use your own billing template
+
+Include this code on your template to include the signup box:
+<code>
+echo $this->getLayout()->createBlock('engine/newsletter')->toHtml();
+</code>
+-->
+    <checkout_onepage_index>
+        <reference name="checkout.onepage.billing">
+        	<action method="setTemplate"><template>engine/default-checkout-onepage-billing.phtml</template></action>
+        </reference>
+    </checkout_onepage_index>
+
+    <default>
+        <!--
+        Include ecommerce pixel before body end
+        -->
+        <reference name="before_body_end">
+            <block type="engine/ecommerce" name="engine_ecommerce_pixel" template="engine/ecommerce_pixel.phtml" />
+        </reference>
+    </default>    
+    
+</layout>
