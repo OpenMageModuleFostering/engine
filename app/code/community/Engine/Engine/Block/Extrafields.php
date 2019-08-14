@@ -67,7 +67,7 @@ class Engine_Engine_Block_Extrafields extends Mage_Adminhtml_Block_System_Config
             
             $rendered = '<select name="'.$inputName.'">';
             foreach ($this->_magentoFields as $att => $name) {
-                $rendered .= '<option value="'.$att.'">'.$name.'</option>';
+                $rendered .= '<option value="' . $att . '">' . $name . '</option>';
             }
             $rendered .= '</select>';        
             

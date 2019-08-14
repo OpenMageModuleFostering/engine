@@ -40,7 +40,7 @@ class Engine_Engine_Model_Subscriber extends Mage_Newsletter_Model_Subscriber
             $data['campaign'] = 'subscribe_form';
             $data['source']   = 'website';
                 
-            $helper->subscribeENgine($email, array(), $actionID);
+            $helper->subscribeENgine($email, $data, $actionID);
         }
         
         return parent::subscribe($email);

@@ -50,3 +50,5 @@
 "E-ngine Config Section","E-ngine Configuratie Sectie"
 "Synchronize subscribers","Abonnees synchroniseren"
 "Should Magento synchronize the subscribers to E-ngine? This will automatically subscribe/unsubscribe users in E-ngine if a user subscribers to your store its newsletter through a signup box or their account.","Dient Magento de abonnees naar E-ngine te synchroniseren? Dit zal abonnees automatisch aan/afmelden in E-ngine wanneer ze zich aanmelden via een box of via hun account."
+"Force sending welcome email","Verstuur altijd een welkomstmail"
+"Should Magento always send a welcome email while signing up? Default only new subscribers will receive a welcome mail.","Dienen abonnees altijd een welkomstmail te ontvangen, ook als ze al lid zijn van de nieuwsbrief? Standaard ontvangen alleen nieuwe adressen de welkomstmail."

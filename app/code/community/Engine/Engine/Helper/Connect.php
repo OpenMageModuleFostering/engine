@@ -103,6 +103,12 @@ class Engine_Engine_Helper_Connect extends Mage_Core_Helper_Abstract
         $client = $this->connectToENgine();
 
         if ($client !== false) {
+            // Should we force a welcome mail?
+            $forceWelcome = Mage::getStoreConfig('engine/actions/engine_forcewelcome');
+            if ($forceWelcome) {
+                $data['_force_welcome_mail'] = '1';
+            }
+            
             Mage::log("E-ngine: Subscribing new email address: $email");
             try {
                 $data['email']   = $email;

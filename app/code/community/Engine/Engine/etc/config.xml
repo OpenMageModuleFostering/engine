@@ -24,7 +24,7 @@
 
     <modules>
         <Engine_Engine>
-            <version>1.1.0</version>
+            <version>1.2.0</version>
         </Engine_Engine>
     </modules>
 
@@ -212,6 +212,9 @@
                 <engine_include_shipping>1</engine_include_shipping>
                 <engine_include_tax>1</engine_include_tax>
             </ecommerce>
+            <actions>
+                <engine_forcewelcome>0</engine_forcewelcome>
+            </actions>
         </engine>
     </default>
     
