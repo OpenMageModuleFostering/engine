@@ -1,7 +1,7 @@
 {
-    "name": "OpenMageModuleFostering\/Engine",
+    "name": "openmage-module-fostering\/engine",
     "type": "magento-module",
-    "license": "Open-Software-License-(OSL-3.0)",
+    "license": "OSL-3.0",
     "homepage": "",
     "description": "This extension will link Magento to E-ngine",
     "authors": [
